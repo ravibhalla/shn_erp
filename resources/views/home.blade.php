@@ -80,6 +80,7 @@ $(document).ready( function () {
             <a type="button" id='print_test' href='/show_print?id={{ $tests->id }}'  class='btn btn-sm btn-success'>Show Print</a>
             <!-- <button type="button" class='btn btn-sm btn-primary'>add</button> -->
              <!-- @endif -->
+             
            
             <!-- <button type="button" class='btn btn-sm btn-primary'>add</button> -->
             <!-- <button type="button" id='delete_test' class='btn btn-sm btn-danger'>Delete</button> -->
