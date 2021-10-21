@@ -57,7 +57,7 @@ $(document).ready( function () {
             <th>Client Name</th>
             
             <th>Created on</th>
-            <th>Testing status</th>
+            <!-- <th>Testing status</th> -->
             <th>actions</th>
 
         </tr>
@@ -72,7 +72,7 @@ $(document).ready( function () {
             
             <td>{{$tests->booking_date}}</td>
             
-            <td>@if($tests->total_dept==$tests->total_done) Completed @else Pending @endif</td>
+            
             
             <td>  
             <a type="button" id='edit_test' href='/edit_test?id={{ $tests->id }}'  class='btn btn-sm btn-warning'>Edit</a>
