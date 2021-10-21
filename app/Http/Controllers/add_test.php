@@ -49,7 +49,8 @@ class add_test extends Controller
         {
             $count=$count+$result[0]->count;
         }
-        $sno='D-'.date("d/m/y", strtotime($booking_date)).'-'.$count;
+         $count = sprintf("%02d", $count);
+        $sno='DPS-'.date("y/m/d", strtotime($booking_date)).'-'.$count;
         return $sno;
     }
 
