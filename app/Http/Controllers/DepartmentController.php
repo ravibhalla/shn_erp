@@ -29,7 +29,7 @@ class DepartmentController extends Controller
     }
 
     public function test_method_data($id){
-        $method=DB::SELECT('SELECT a.*,c.is_done as isdone,e.test_method as test_method ,c.id as test_util_id,d.name as test_param_name FROM `erp_test_product` a left join test_dept_util c on a.id=c.test_id left join test_params d on c.test_param_id=d.id left join erp_test_method e on c.test_method_id=e.id  where c.dept_id='.$id);
+        $method=DB::SELECT('SELECT a.*,c.is_done as isdone,group_concat(e.test_method,"||") as test_method ,c.id as test_util_id,group_concat(d.name,"||") as test_param_name FROM `erp_test_product` a left join test_dept_util c on a.id=c.test_id left join test_params d on c.test_param_id=d.id left join erp_test_method e on c.test_method_id=e.id  where c.dept_id='.$id.' group by test_gen_id');
         return $method;
     }
 
