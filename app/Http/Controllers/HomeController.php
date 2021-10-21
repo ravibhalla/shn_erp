@@ -45,7 +45,7 @@ class HomeController extends Controller
         $gst =  $request->input('gst');
         $email =  $request->input('email');
         $address =  $request->input('address');
-        if($name!="" && $phone!="" && $gst!="" && $email!="" && $address!="" )
+        if($name!="" && $phone!="" && $email!="" && $address!="" )
         {
             //$users = DB::insert('select id, name from users');
             $results = DB::insert( DB::raw("insert into erp_client(name,address,gst_no,email,number) values(:name,:address,:gst,:email,:phone)"), array(

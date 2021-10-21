@@ -45,12 +45,12 @@
 
     <div class="form-group">
       <label for="formFileLg" class="form-label">Upload Product Image:</label>
-      <input class="form-control form-control-md"  id="product_image" name='product_image' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewProduct').src = window.URL.createObjectURL(this.files[0])} else{ $('#previewProduct').attr('src', '') }" />
+      <input class="form-control form-control-md"  id="product_image" name='product_image' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewProduct').src = window.URL.createObjectURL(this.files[0])} else{ $('#previewProduct').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=') }" />
       
     </div>
     </div>
     <div class='col-md-2'>
-    <img id="previewProduct" src="#" alt="" width="100" height="100">
+    <img id="previewProduct" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="100" height="100">
 
     </div>
 
@@ -103,11 +103,11 @@
 <div class='col-md-10'>
 <div class="form-group">
       <label for="formFileLg" class="form-label">Upload Letter Image:</label>
-      <input class="form-control form-control-md" id="letter_img" name='letter_img' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewLetter').src = window.URL.createObjectURL(this.files[0])} else { $('#previewLetter').attr('src', '') }" />
+      <input class="form-control form-control-md" id="letter_img" name='letter_img' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewLetter').src = window.URL.createObjectURL(this.files[0])} else { $('#previewLetter').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=') }" />
       </div>
       </div>
       <div class='col-md-2'>
-    <img id="previewLetter" src="#" alt="" width="100" height="100">
+    <img id="previewLetter" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="" width="100" height="100">
 
     </div>
       
@@ -128,6 +128,24 @@
 <div class="form-group">
       <label for="formFileLg" class="form-label">Advance Amount: </label>
       <input class="form-control form-control-md" id="advc_amt" name='advc_amt' type="number" />
+</div>
+</div>
+</div>
+
+<div class='row'>  
+<div class='col-md-6'>
+
+<div class="form-group">
+      <label for="formFileLg" class="form-label">Discount:</label>
+      <input class="form-control form-control-md" id="discount" name='discount' type="number" />
+</div>
+
+</div>
+    
+<div class='col-md-6'>
+<div class="form-group">
+      <label for="formFileLg" class="form-label">Kind Attention: </label>
+      <input class="form-control form-control-md" id="description" name='description' type="text" />
 </div>
 </div>
 </div>
@@ -265,7 +283,7 @@ function ChangeDept()
             c=b.split(',');
             var abc=generate_test_method(c[0]);
 
-          dropotp+="<div class='row' style='padding-bottom:10px;'><div class='col-md-2'>"+c[1]+":</div><div class='col-md-3'><select class='form-control test_method_select' name='test_method_select[]' onchange='change_func(this);'  ><option value=''>Select Test Standard</option>"+abc+"</select></div><div class='col-md-3'><select class='form-control test_method_param_select selectpicker' onchange='change_func_params(this);' title='Select Test Parameter' name='test_method_params_select[]'  multiple></select></div></div>";
+          dropotp+="<div class='row' style='padding-bottom:10px;'><div class='col-md-2'>"+c[1]+":</div><div class='col-md-3'><select class='form-control test_method_select' name='test_method_select[]' onchange='change_func(this);'  ><option value=''>Select Test Standard</option>"+abc+"</select></div><div class='col-md-3'><select class='form-control test_method_param_select selectpicker' onchange='change_func_params(this);' title='Select Test Parameter' name='test_method_params_select[]'  multiple></select></div><div style='cursor:pointer' onclick='addRow(this)'><svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></div></div>";
 
           });
           
@@ -289,22 +307,33 @@ $("#product_name").change(function(){$(this).removeClass('is-invalid')});
 
   $("#inputClientName").change(function(){$(this).removeClass('is-invalid')});
   $("#inputdepttName").change(function(){$(this).parent().removeClass('is-invalid')}); 
+
+  $("#discount").change(function(){$(this).removeClass('is-invalid')});
+
+$("#description").change(function(){$(this).removeClass('is-invalid')});
   
   function check_total_amt()
   {
    
     var total_amt=0;
     $("[name^=test_method_params_select]").each(function () {
+      console.log($(this).val());
                   if($(this).val()!=null)
                   {
                     var option_all = $(this).find("option:selected").map(function () {
                       return $(this).text();
                      }).get().join(',');
                     var arrs=option_all.split(',')
+                    
                     for(var arr of arrs)
                       {
+                        
                         var amt = parseFloat(arr.split("₹").pop());
+                        if(!isNaN(amt))
+                        {
+                        console.log(amt);
                         total_amt=total_amt+amt; 
+                        }
                       }
                       
                    
@@ -312,6 +341,22 @@ $("#product_name").change(function(){$(this).removeClass('is-invalid')});
                   });
    $('#total_amt').removeClass('is-invalid')
    $('#total_amt').val(total_amt);
+  }
+
+  function addRow(data)
+  {
+    
+    var html="<div class='row' style='padding-bottom:10px;'><div class='col-md-2'></div><div class='col-md-3'><select class='form-control test_method_select' name='test_method_select[]' onchange='change_func(this);'  >"+$(data).parent().find('.test_method_select').html()+"</select></div><div class='col-md-3'><select class='form-control test_method_param_select selectpicker' onchange='change_func_params(this);' title='Select Test Parameter' name='test_method_params_select[]'  multiple></select></div><div style='cursor:pointer' onclick='deleteRow(this)'><svg xmlns='http://www.w3.org/2000/svg' width='40' height='50' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'><path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/></svg></div></div>";
+    $(data).parent().after(html);
+   
+    $('.selectpicker').selectpicker('refresh');
+  }
+  function deleteRow(data)
+  {
+    $(data).parent().remove();
+   
+   $('.selectpicker').selectpicker('refresh');
+   check_total_amt();
   }
 
 
@@ -395,6 +440,8 @@ $('#mainFormSubmit').click(function() {
     if($('#due_date').val()==""){ $('#due_date').addClass('is-invalid'); i=1; }
     if($('#letter_date').val()==""){ $('#letter_date').addClass('is-invalid'); i=1; }
     if($('#advc_amt').val()==""){ $('#advc_amt').addClass('is-invalid'); i=1; }
+    if($('#discount').val()==""){ $('#discount').addClass('is-invalid'); i=1; }
+    if($('#description').val()==""){ $('#description').addClass('is-invalid'); i=1; }
     if($('#letter_ref_no').val()==""){ $('#letter_ref_no').addClass('is-invalid'); i=1; }
     if($('#total_amt').val()=="" || $('#total_amt').val()=="0"){ $('#total_amt').addClass('is-invalid'); i=1; }
     if($('#inputClientName').val()==""){ $('#inputClientName').addClass('is-invalid'); i=1; }

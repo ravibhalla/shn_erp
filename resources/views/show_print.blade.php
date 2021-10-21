@@ -9,17 +9,71 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <style>
 .container-fluid{
-    margin-top: 120px;
-padding:10px;
+  
+padding:50px;
 }
-.param_sub{
-    margin-left:30px;
-}
+
 </style>
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row justify-content-center">
+    <center><h4>Test Report</h4></center>
+    <table class="table table-bordered" >
+        <th colspan="4" style="text-align:center">
+            Report ID: {{ $testing_data[0]->test_gen_id }}
+        </th>
+        <tr>
+            <td>Issued To</td>
+            <td>{{ $testing_data[0]->client_name }}, {{ $testing_data[0]->client_address }}</td>
+            <td>Sample Booking / Receipt Date</td>
+            <td>{{ $testing_data[0]->booking_date }}</td>
+        </tr>
+        <tr>
+            <td>
+                Letter Ref No.
+                <br>
+                Date
+            </td>
+            <td>
+            {{ $testing_data[0]->letter_ref_no }}
+            <br>
+            {{ $testing_data[0]->letter_date }}
+            </td>
+            <td>Date of Issue</td>
+            <td>{{ date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <td>
+                Client Name
+            </td>
+            <td colspan="3">
+            {{ $testing_data[0]->client_name }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kind Attention <br>
+                Email
+            </td>
+            <td colspan="3">
+            @if($testing_data[0]->description =='')         
+                -------
+            @else
+                {{ $testing_data[0]->description }}       
+            @endif
+      
+            <br>
+            {{ $testing_data[0]->email }}
+            </td>
+        </tr>
+        <tr>
+            <td>Sample Description</td>
+            <td colspan="3">{{ $testing_data[0]->product_name }}</td>
+        </tr>
+
+    </table>
+
+    <!-- <div class="row justify-content-center">
         <div class='col-lg-12 col-md-12'>
         <div class='row'>
         <div class='col-lg-2 col-md-2'>
@@ -59,7 +113,7 @@ padding:10px;
             <span style='float:right'>
                 Date of start of testing:{{ $testing_data[0]->booking_date }}
             </span>
-        <table class='table table-bordered '>
+         <table class='table table-bordered '>
             <thead>
                 <tr>
                     <th>Sl.No</th>
@@ -102,13 +156,13 @@ padding:10px;
                 <input type='hidden' value='{{ $i++ }}' />
                 @endforeach
             </thead>
-        </table>
+        </table> 
         
         
         </div>
 
 
-    </div>
+    </div> -->
 </div>
 </body>
 </html>

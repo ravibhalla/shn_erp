@@ -66,6 +66,8 @@ class add_test extends Controller
                             'advc_amt'=>'required',
                             'total_amt'=>'required',
                             'inputClientName'=>'required',
+                            'discount'=>'required',
+                            'description'=>'required',
                             ]);
                         
 
@@ -85,6 +87,9 @@ class add_test extends Controller
         $total_amt =  $request->input('total_amt');
         $inputdepttName =  $request->input('inputdepttName');
         $letter_img = $request->file('letter_img');
+
+        $discount =  $request->input('discount');
+        $description = $request->file('description');
         //you also need to keep file extension as well
         $name_full = 'letter_'.$product_name.'_'.$this->generateRandomString().'.'.$letter_img->getClientOriginalExtension();
         //$name= 'letter_'.$this->generateRandomString();
@@ -114,9 +119,9 @@ class add_test extends Controller
 
 
         $results = DB::insert( DB::raw("insert into erp_test_product(client_id,product_name,product_img_url,
-        booking_date,due_date,letter_ref_no,letter_date,letter_img_url,total_amt,advc_amount,test_gen_id) 
+        booking_date,due_date,letter_ref_no,letter_date,letter_img_url,total_amt,advc_amount,test_gen_id,discount,description) 
         values(:client_id,:product_name,:product_img_url,:booking_date,:due_date,:letter_ref_no,:letter_date,
-        :letter_img_url,:total_amt,:advc_amount,:test_gen_id)"), array(
+        :letter_img_url,:total_amt,:advc_amount,:test_gen_id,:discount,:description)"), array(
             'client_id'=>$inputClientName,
             'product_name'=>$product_name,
             'product_img_url'=>$product_image,
@@ -127,7 +132,9 @@ class add_test extends Controller
             'letter_img_url'=>$letter_img_url,
             'total_amt'=>$total_amt, 
             'advc_amount'=>$advc_amt,
-            'test_gen_id'=>$serial_no
+            'test_gen_id'=>$serial_no,
+            'discount'=>$discount,
+            'description'=>$description,
           ));
         if($request)       
         {

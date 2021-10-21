@@ -44,7 +44,7 @@
     <div class='col-md-5'>
     <div class="form-group">
       <label for="formFileLg" class="form-label">Upload Product Image:</label>
-      <input class="form-control form-control-md"  value='{{$test_details[0]->product_img_url}}' id="product_image" name='product_image' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewProduct').src = window.URL.createObjectURL(this.files[0])} else{ $('#previewProduct').attr('src', '') }" />
+      <input class="form-control form-control-md"  value='{{$test_details[0]->product_img_url}}' id="product_image" name='product_image' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewProduct').src = window.URL.createObjectURL(this.files[0])} else{ $('#previewProduct').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=') }" />
     </div>
     </div>
     <div class='col-md-2'>
@@ -101,7 +101,7 @@
     <div class='col-md-10'>
 <div class="form-group">
       <label for="formFileLg" class="form-label">Upload Letter Image:</label>
-      <input class="form-control form-control-md" id="letter_img" name='letter_img' value='{{$test_details[0]->letter_img}}' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewLetter').src = window.URL.createObjectURL(this.files[0])} else { $('#previewLetter').attr('src', '') }" />
+      <input class="form-control form-control-md" id="letter_img" name='letter_img' value='{{$test_details[0]->letter_img}}' type="file" onchange="if(this.files[0]!=null){document.getElementById('previewLetter').src = window.URL.createObjectURL(this.files[0])} else { $('#previewLetter').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=') }" />
       </div>
       </div>
       <div class='col-md-2'>

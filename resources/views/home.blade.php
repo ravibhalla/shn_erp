@@ -75,13 +75,14 @@ $(document).ready( function () {
             <td>@if($tests->total_dept==$tests->total_done) Completed @else Pending @endif</td>
             
             <td>  
+            <a type="button" id='edit_test' href='/edit_test?id={{ $tests->id }}'  class='btn btn-sm btn-warning'>Edit</a>
             @if($tests->total_dept==$tests->total_done) 
-            <a type="button" id='print_test' href='/show_print?id={{ $tests->id }}'  class='btn btn-sm btn-primary'>Show Print</a>
+            <a type="button" id='print_test' href='/show_print?id={{ $tests->id }}'  class='btn btn-sm btn-success'>Show Print</a>
             <!-- <button type="button" class='btn btn-sm btn-primary'>add</button> -->
              @endif
-            <a type="button" id='edit_test' href='/edit_test?id={{ $tests->id }}'  class='btn btn-sm btn-primary'>Edit</a>
+           
             <!-- <button type="button" class='btn btn-sm btn-primary'>add</button> -->
-            <button type="button" id='delete_test' class='btn btn-sm btn-danger'>Delete</button>
+            <!-- <button type="button" id='delete_test' class='btn btn-sm btn-danger'>Delete</button> -->
                      </td>
         </tr>
         @endforeach
@@ -208,7 +209,7 @@ function GetDynamicTextBox(value) {
 <script>
   $("#inputModalClientName").change(function(){$(this).removeClass('is-invalid')});
   $("#inputModalClientPhone").change(function(){$(this).removeClass('is-invalid')});
-  $("#inputModalClientGst").change(function(){$(this).removeClass('is-invalid')});
+  // $("#inputModalClientGst").change(function(){$(this).removeClass('is-invalid')});
   $("#inputModalClientEmail").change(function(){$(this).removeClass('is-invalid')});
   $("#inputModalClientAddress").change(function(){$(this).removeClass('is-invalid')});
   $('#btn-client-submit').click(function(){
@@ -223,11 +224,11 @@ function GetDynamicTextBox(value) {
         $('#inputModalClientPhone').addClass('is-invalid');
         i=1;
       }
-      if($('#inputModalClientGst').val()=="")
-      {
-        $('#inputModalClientGst').addClass('is-invalid');
-        i=1;
-      }
+      // if($('#inputModalClientGst').val()=="")
+      // {
+      //   $('#inputModalClientGst').addClass('is-invalid');
+      //   i=1;
+      // }
       if($('#inputModalClientEmail').val()=="")
       {
        
