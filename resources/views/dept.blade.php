@@ -6,12 +6,16 @@
   body{
       background-color:#F1F1F1 !important;
   }
+  .hide_param_div{
+      display:none;
+  }
   </style>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
 <script>
 $(document).ready( function () {
     $.noConflict();
     $('#table_id').DataTable();
+    $('#table_id_param').DataTable();
 } );
 </script>
 <div class="container-fluid">
@@ -34,7 +38,7 @@ $(document).ready( function () {
             
             <th>Test Id</th>
             
-            <th>Test Parameter Name</th>
+            <!-- <th>Test Parameter Name</th> -->
             
             <th>Created on</th>
             <th>Testing status</th>
@@ -46,7 +50,7 @@ $(document).ready( function () {
     @foreach ($testing_data as  $tests)
         <tr>
             <td>{{$tests->test_gen_id}}</td>
-            <td>{{$tests->test_param_name}}</td>
+            <!-- <td>{{$tests->test_param_name}}</td> -->
             
             
             <td>{{$tests->booking_date}}</td>
@@ -54,14 +58,18 @@ $(document).ready( function () {
             <td>@if($tests->isdone=='1') Completed @else Pending @endif</td>
             
             <td>  
-            <a type="button" id='edit_test' href='dept/addParams?id={{ $tests->test_util_id }}'  class='btn btn-sm btn-primary'>Add Params</a>
+            <!-- <a type="button" id='edit_test' href='dept/addParams?id={{ $tests->test_util_id }}'  class='btn btn-sm btn-primary'>Add Params</a> -->
+            <a type="button" id='show_param' onclick='$(".hide_param_div").hide();$("#show_param_div_{{ $tests->test_util_id }}").toggle();'  class='btn btn-sm btn-warning'>Show Param</a>
             <!-- <button type="button" class='btn btn-sm btn-primary'>add</button> -->
             <!-- <button type="button" id='delete_test' class='btn btn-sm btn-danger'>Delete</button> -->
                      </td>
         </tr>
+
         @endforeach
       </tbody>
 </table>
+
+
 
 </div>
 </div>
@@ -74,7 +82,77 @@ $(document).ready( function () {
     </div>
 </div>
 
- 
+
+<div >
+
+
+    @foreach ($testing_data as  $tests)
+<div class="container-fluid hide_param_div" id='show_param_div_{{ $tests->test_util_id }}'>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <!-- <div class="card-header">Testing List</div> -->
+
+                <div class="card-body">
+                    
+                
+                    
+                    <h4>Testing Description List For {{$tests->test_gen_id}}</h4>
+                    <hr>
+<div class='row'>
+<div class='col-lg-12'>
+
+    <table  class="display border table table-bordered">
+    <thead>
+        <tr>
+            <!-- <th>Test Id</th> -->
+            <!-- <th>Test Parameter Name</th>-->
+            <!-- <th>Created on</th> -->
+            <th> Test Method </th>
+            <th> Test Parameter </th>
+            <!-- <th>Testing status</th>
+            <th>actions</th> -->
+
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+        $meth=explode('||,',$tests->test_method); 
+        $para=explode('||,',$tests->test_param_name); 
+        for($i=0;$i<count($meth);$i++){
+        ?>
+        
+    <tr>
+            <!-- <td>{{$tests->test_gen_id}}</td> -->
+            <!-- <td>{{$tests->booking_date}}</td>  -->
+            <td>{{ str_replace('||','',$meth[$i]) }}</td>
+            <td>{{  str_replace('||','',$para[$i]) }}</td>           
+            <!-- <td>@if($tests->isdone=='1') Completed @else Pending @endif</td> -->
+            <!-- <td>   -->
+            <!-- <a type="button" id='edit_test' href='dept/addParams?id={{ $tests->test_util_id }}'  class='btn btn-sm btn-primary'>Add Params</a> -->
+            <!-- <a type="button" id='show_param'  class='btn btn-sm btn-warning'>Show Param</a> -->
+            <!-- <button type="button" class='btn btn-sm btn-primary'>add</button> -->
+            <!-- <button type="button" id='delete_test' class='btn btn-sm btn-danger'>Delete</button> -->
+                     <!-- </td> -->
+        </tr>
+<?php } ?>
+      </tbody>
+</table>
+
+
+
+</div>
+</div>
+
+
+</section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 
    
 @endsection
